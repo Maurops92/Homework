@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework</title>
+  <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #e0f7fa;
+    }
+    #container {
+        text-align: center;
+        background-color: #ffffff;
+        border: 1px solid #b2ebf2; 
+        border-radius: 12px; 
+        padding: 30px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    }
+    button {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #009688; 
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px; 
+        transition: background-color 0.3s; 
+    }
+    button:hover {
+        background-color: #00796b; 
+    }
+    #result {
+        margin-top: 20px;
+        font-size: 20px; 
+        color: #444;
+    }
+</style>
+</head>
+<body>
+  <div id="container">
+    <h1>Homework</h1>
+    <div id="arrays">
+      <p><strong>Array:</strong> [5, 7, 1, 2, 8, 4, 3]</p>
+      <p><strong>Targets:</strong> 10, 19</p>
+    </div>
+    <button onclick="findAllSolutions()">Show Solutions</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Array and target values
+    const arr = [5, 7, 1, 2, 8, 4, 3];
+    const targets = [10, 19];
+
+    // Function to find all pairs with a specific target sum
+    function findPairsWithSum(arr, targetSum) {
+      const pairs = [];
+      const numsSeen = new Set();
+      for (let num of arr) {
+        const complement = targetSum - num;
+        if (numsSeen.has(complement)) {
+          pairs.push([num, complement]);
+        }
+        numsSeen.add(num);
+      }
+      return pairs;
+    }
+
+    // Function to display all solutions when the button is clicked
+    function findAllSolutions() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = ""; // Clear previous results
+
+      targets.forEach(target => {
+        const pairs = findPairsWithSum(arr, target);
+        if (pairs.length > 0) {
+          resultDiv.innerHTML += `<p>Target ${target}: ${pairs.map(pair => `(${pair[0]}, ${pair[1]})`).join(', ')}</p>`;
+        } else {
+          resultDiv.innerHTML += `<p>Target ${target}: No solutions</p>`;
+        }
+      });
+    }
+
+    setInterval(() => {
+      console.log("I'm running in the backend to prevent Render from shutting down.");
+    }, 300000);
+  </script>
+</body>
+</html>
